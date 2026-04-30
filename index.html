@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esports Matchmaking</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
 
     <style>
         :root {
@@ -29,6 +32,10 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-base);
@@ -42,14 +49,19 @@
         /* --- PREMIUM SUBTLE BACKGROUND --- */
         .ambient-bg {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: -3;
             background: var(--bg-base);
             overflow: hidden;
         }
 
         /* Soft Mesh Gradient Flows */
-        .mesh-1, .mesh-2, .mesh-3 {
+        .mesh-1,
+        .mesh-2,
+        .mesh-3 {
             position: absolute;
             border-radius: 50%;
             filter: blur(140px);
@@ -59,41 +71,59 @@
         }
 
         .mesh-1 {
-            width: 80vw; height: 80vh;
+            width: 80vw;
+            height: 80vh;
             background: rgba(0, 240, 255, 0.15);
-            top: -20vh; left: -10vw;
+            top: -20vh;
+            left: -10vw;
         }
 
         .mesh-2 {
-            width: 70vw; height: 70vh;
+            width: 70vw;
+            height: 70vh;
             background: rgba(255, 0, 85, 0.12);
-            bottom: -20vh; right: -10vw;
+            bottom: -20vh;
+            right: -10vw;
             animation-delay: -7s;
         }
 
         .mesh-3 {
-            width: 60vw; height: 60vh;
+            width: 60vw;
+            height: 60vh;
             background: rgba(112, 0, 255, 0.1);
-            top: 20vh; left: 30vw;
+            top: 20vh;
+            left: 30vw;
             animation-delay: -14s;
         }
 
         @keyframes meshFlow {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(5vw, 5vh) scale(1.1); }
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(5vw, 5vh) scale(1.1);
+            }
         }
 
         /* High-End Faint Dot Grid */
         .dot-grid {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: -2;
             background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
             background-size: 32px 32px;
             pointer-events: none;
         }
 
-        h1, h2, h3, .brand, button {
+        h1,
+        h2,
+        h3,
+        .brand,
+        button {
             font-family: 'Rajdhani', sans-serif;
             text-transform: uppercase;
         }
@@ -101,7 +131,8 @@
         /* --- FLOATING PREMIUM NAV --- */
         nav {
             position: fixed;
-            top: 24px; left: 50%;
+            top: 24px;
+            left: 50%;
             transform: translateX(-50%);
             width: 90%;
             max-width: 1000px;
@@ -117,13 +148,20 @@
             display: flex;
             align-items: center;
             gap: 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
             animation: navDrop 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes navDrop {
-            from { top: -80px; opacity: 0; }
-            to { top: 24px; opacity: 1; }
+            from {
+                top: -80px;
+                opacity: 0;
+            }
+
+            to {
+                top: 24px;
+                opacity: 1;
+            }
         }
 
         .brand {
@@ -136,7 +174,7 @@
             align-items: center;
             gap: 12px;
         }
-        
+
         .brand span {
             color: var(--accent-cyan);
             background: rgba(0, 240, 255, 0.1);
@@ -160,8 +198,8 @@
 
         nav a:hover {
             color: #fff;
-            background: rgba(255,255,255,0.1);
-            box-shadow: inset 0 0 10px rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
         }
 
         /* --- HERO SECTION --- */
@@ -192,8 +230,13 @@
         }
 
         @keyframes pulseBadge {
-            0% { box-shadow: 0 0 10px rgba(0, 240, 255, 0.2); }
-            100% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); }
+            0% {
+                box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+            }
+
+            100% {
+                box-shadow: 0 0 25px rgba(0, 240, 255, 0.6);
+            }
         }
 
         .hero h1 {
@@ -216,7 +259,9 @@
         }
 
         @keyframes shine {
-            to { background-position: 200% center; }
+            to {
+                background-position: 200% center;
+            }
         }
 
         .hero p {
@@ -228,7 +273,7 @@
             opacity: 0;
             animation: fadeUp 0.8s ease 0.4s forwards;
             line-height: 1.8;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
         }
 
         .hero-features {
@@ -264,8 +309,15 @@
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* --- SECTIONS & CARDS --- */
@@ -315,7 +367,9 @@
         }
 
         @media(max-width: 1000px) {
-            .grid-2 { grid-template-columns: 1fr !important; }
+            .grid-2 {
+                grid-template-columns: 1fr !important;
+            }
         }
 
         /* Premium Card Design */
@@ -326,7 +380,7 @@
             border-top: 1px solid var(--border-highlight);
             padding: 32px;
             position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             transition: all 0.3s ease;
@@ -335,7 +389,7 @@
         .container:hover {
             background: var(--bg-card-hover);
             transform: translateY(-4px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 20px rgba(0, 240, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.1);
             border-color: rgba(0, 240, 255, 0.3);
             border-top-color: rgba(0, 240, 255, 0.6);
         }
@@ -343,11 +397,21 @@
         .graph-wrapper {
             width: 100%;
             height: 400px;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             margin-bottom: 16px;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .graph-title {
+            text-align: center;
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         /* --- CONTROLS --- */
@@ -357,7 +421,7 @@
             align-items: center;
             margin-bottom: 32px;
             flex-wrap: wrap;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.3);
             padding: 24px;
             border-radius: 12px;
             border: 1px solid var(--border-light);
@@ -379,7 +443,7 @@
         select {
             width: 100%;
             padding: 16px 20px;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.8);
             border: 1px solid var(--border-light);
             color: #fff;
             font-family: 'Inter', sans-serif;
@@ -392,7 +456,8 @@
             border-radius: 8px;
         }
 
-        select:focus, select:hover {
+        select:focus,
+        select:hover {
             border-color: var(--accent-cyan);
             background: #000;
             box-shadow: 0 0 0 3px var(--accent-cyan-dim);
@@ -404,15 +469,15 @@
             right: 20px;
             top: 50%;
             transform: translateY(-50%);
-            width: 0; 
-            height: 0; 
+            width: 0;
+            height: 0;
             border-left: 6px solid transparent;
             border-right: 6px solid transparent;
             border-top: 6px solid var(--text-muted);
             pointer-events: none;
             transition: border-color 0.3s;
         }
-        
+
         .select-wrapper:hover::after {
             border-top-color: var(--accent-cyan);
         }
@@ -432,12 +497,12 @@
             align-items: center;
             gap: 12px;
             border-radius: 8px;
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255,255,255,0.4);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
             background: var(--accent-cyan);
         }
 
@@ -450,15 +515,16 @@
             color: #000;
             box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
         }
+
         .btn-primary:hover {
             background: #fff;
             box-shadow: 0 10px 30px rgba(0, 240, 255, 0.6);
         }
 
         #bestBtn {
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             color: #fff;
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             margin-top: 16px;
             width: 100%;
             justify-content: center;
@@ -477,7 +543,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             border: 1px solid var(--border-light);
             padding: 16px 20px;
             border-radius: 8px;
@@ -498,17 +564,24 @@
             font-size: 0.95rem;
             color: var(--text-muted);
             font-weight: 600;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             padding: 6px 14px;
             border-radius: 50px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .team-hl { color: var(--accent-cyan); text-shadow: 0 0 10px var(--accent-cyan-dim); }
-        .team-hl-alt { color: var(--accent-pink); text-shadow: 0 0 10px var(--accent-pink-dim); }
+        .team-hl {
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px var(--accent-cyan-dim);
+        }
+
+        .team-hl-alt {
+            color: var(--accent-pink);
+            text-shadow: 0 0 10px var(--accent-pink-dim);
+        }
 
         .simulation-box {
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             border: 1px solid var(--border-light);
             padding: 18px 24px;
             border-radius: 8px;
@@ -529,12 +602,12 @@
             font-weight: 700;
             color: #fff;
             letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
 
         /* --- TEXT COMPARISON UI --- */
         .comp-card {
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border-light);
             border-radius: 12px;
             padding: 32px;
@@ -543,11 +616,11 @@
         }
 
         .comp-card:hover {
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             border-color: rgba(0, 240, 255, 0.3);
             box-shadow: 0 10px 40px rgba(0, 240, 255, 0.1);
         }
-        
+
         .comp-card.alt:hover {
             border-color: rgba(255, 0, 85, 0.3);
             box-shadow: 0 10px 40px rgba(255, 0, 85, 0.1);
@@ -556,12 +629,15 @@
         .comp-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
             background: var(--accent-cyan);
             border-radius: 12px 12px 0 0;
             box-shadow: 0 0 20px var(--accent-cyan);
         }
-        
+
         .comp-card.alt::before {
             background: var(--accent-pink);
             box-shadow: 0 0 20px var(--accent-pink);
@@ -580,14 +656,21 @@
             display: flex;
             justify-content: space-between;
             padding: 14px 0;
-            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
             align-items: center;
         }
-        .stat-row:last-child { border-bottom: none; }
 
-        .stat-row span { color: var(--text-muted); font-size: 1rem; }
-        .stat-row strong { 
-            color: #fff; 
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-row span {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .stat-row strong {
+            color: #fff;
             font-family: 'Rajdhani', sans-serif;
             font-size: 1.3rem;
             font-weight: 700;
@@ -595,18 +678,34 @@
         }
 
         /* SCROLLBAR */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: var(--bg-base); }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 5px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
 
-        .hidden { display: none !important; }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-base);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .hidden {
+            display: none !important;
+        }
 
         /* Dynamic Cursor Glow */
         .cursor-glow {
             position: fixed;
-            top: 0; left: 0;
-            width: 800px; height: 800px;
+            top: 0;
+            left: 0;
+            width: 800px;
+            height: 800px;
             background: radial-gradient(circle closest-side, rgba(0, 240, 255, 0.08), transparent);
             border-radius: 50%;
             pointer-events: none;
@@ -620,7 +719,10 @@
         /* --- MODALS --- */
         .modal-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(8px);
             z-index: 2000;
@@ -647,7 +749,7 @@
             max-height: 80vh;
             overflow-y: auto;
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
             transform: translateY(20px);
             transition: transform 0.3s ease;
         }
@@ -700,8 +802,17 @@
             font-family: 'Rajdhani', sans-serif;
             text-transform: uppercase;
         }
-        .modal-body p { margin-bottom: 12px; }
-        .modal-body code { background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px; color: var(--accent-cyan); }
+
+        .modal-body p {
+            margin-bottom: 12px;
+        }
+
+        .modal-body code {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--accent-cyan);
+        }
 
         /* --- PREMIUM FOOTER --- */
         footer {
@@ -781,11 +892,14 @@
         <div class="mesh-3"></div>
         <div class="dot-grid"></div>
     </div>
-    
+
     <!-- FLOATING NAVBAR -->
     <nav>
         <div class="brand">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-cyan)"><path d="M12 2L2 22h20L12 2z"></path></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-cyan)">
+                <path d="M12 2L2 22h20L12 2z"></path>
+            </svg>
             E-MATCH<span>SYS</span>
         </div>
         <a href="#analytics">Analytics</a>
@@ -796,8 +910,9 @@
     <div class="hero">
         <div class="hero-badge">v1.0 MATCHMAKING ENGINE</div>
         <h1>TACTICAL ANALYTICS</h1>
-        <p>Harness the power of machine learning and deep statistical modeling. Simulate 100-match series, discover perfectly balanced opponents, and decode the competitive meta.</p>
-        
+        <p>Harness the power of machine learning and deep statistical modeling. Simulate 100-match series, discover
+            perfectly balanced opponents, and decode the competitive meta.</p>
+
         <div class="hero-features">
             <div class="hero-feature">
                 <span class="feat-val">100+</span>
@@ -820,9 +935,11 @@
         <div class="grid-2">
             <div class="container">
                 <div id="scatter" class="graph-wrapper"></div>
+                <div class="graph-title">Strength vs. Tactical Efficiency</div>
             </div>
             <div class="container">
                 <div id="histogram" class="graph-wrapper"></div>
+                <div class="graph-title">Overall Strength Distribution</div>
             </div>
         </div>
     </div>
@@ -840,14 +957,17 @@
                     <select id="team2"></select>
                 </div>
                 <button class="btn-primary" onclick="predict()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9V3z"></path></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 3l14 9-14 9V3z"></path>
+                    </svg>
                     Run Simulation
                 </button>
             </div>
 
             <!-- Dynamic Grid -->
             <div class="grid-2 hidden" id="resultsGrid">
-                
+
                 <!-- Current Match Column -->
                 <div class="match-column">
                     <div class="result-header">
@@ -856,7 +976,7 @@
                     </div>
                     <div id="chart" class="graph-wrapper"></div>
                     <div class="simulation-box">
-                        <span class="sim-label">100-Match Result</span> 
+                        <span class="sim-label">100-Match Result</span>
                         <span class="sim-score" id="simulation"></span>
                     </div>
                 </div>
@@ -869,7 +989,7 @@
                     </div>
                     <div id="chartBest" class="graph-wrapper"></div>
                     <div class="simulation-box">
-                        <span class="sim-label">100-Match Result</span> 
+                        <span class="sim-label">100-Match Result</span>
                         <span class="sim-score" id="bestSimulation"></span>
                     </div>
                 </div>
@@ -877,7 +997,11 @@
             </div>
 
             <button id="bestBtn" style="display:none;" onclick="compareBest()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
                 Find Most Balanced Opponent
             </button>
         </div>
@@ -888,11 +1012,19 @@
         <h2>Post-Match Analysis</h2>
         <div class="grid-2">
             <div class="comp-card">
-                <h3><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-cyan)"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg> Current Matchup</h3>
+                <h3><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="color:var(--accent-cyan)">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                    </svg> Current Matchup</h3>
                 <div id="compareTextResult"></div>
             </div>
             <div class="comp-card alt">
-                <h3><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-pink)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Balanced Alternative</h3>
+                <h3><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="color:var(--accent-pink)">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg> Balanced Alternative</h3>
                 <div id="compareTextBestResult"></div>
             </div>
         </div>
@@ -906,12 +1038,19 @@
                 <button class="modal-close" onclick="closeModal(null, 'apiModal')">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Welcome to the E-MATCHSYS API. Use our local endpoints to integrate our prediction engine into your own custom dashboards.</p>
+                <p>Welcome to the E-MATCHSYS API. Use our local endpoints to integrate our prediction engine into your
+                    own custom dashboards.</p>
                 <h4>Endpoints</h4>
                 <p><code>GET /teams</code> - Returns a list of all available teams.</p>
                 <p><code>GET /analytics</code> - Returns tactical and strength metrics for all teams.</p>
+<<<<<<< HEAD
                 <p><code>POST /predict</code> - Simulates a 100 match series between two specified teams.</p>
                 <p><code>POST /best-match-full</code> - Finds the most balanced opponent and returns full simulation details.</p>
+=======
+                <p><code>POST /predict</code> - Simulates a 100-match series between two specified teams.</p>
+                <p><code>POST /best-match-full</code> - Finds the most balanced opponent and returns full simulation
+                    details.</p>
+>>>>>>> 09a31b961ba5250b62381d249d61d54c1b3a1e95
             </div>
         </div>
     </div>
@@ -923,9 +1062,11 @@
                 <button class="modal-close" onclick="closeModal(null, 'privacyModal')">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Your privacy is strictly protected. This application processes esports simulation data entirely locally on your machine.</p>
+                <p>Your privacy is strictly protected. This application processes esports simulation data entirely
+                    locally on your machine.</p>
                 <h4>Data Usage</h4>
-                <p>All statistical data is sourced from provided CSV files. No external databases are contacted without explicit user instruction. No tracking cookies or telemetry are used.</p>
+                <p>All statistical data is sourced from provided CSV files. No external databases are contacted without
+                    explicit user instruction. No tracking cookies or telemetry are used.</p>
             </div>
         </div>
     </div>
@@ -937,9 +1078,11 @@
                 <button class="modal-close" onclick="closeModal(null, 'termsModal')">&times;</button>
             </div>
             <div class="modal-body">
-                <p>By using E-MATCHSYS, you agree to our terms. This tool is provided for analytical and entertainment purposes only.</p>
+                <p>By using E-MATCHSYS, you agree to our terms. This tool is provided for analytical and entertainment
+                    purposes only.</p>
                 <h4>Liability</h4>
-                <p>We are not responsible for any financial decisions, wagers, or bets made based on the simulations output by this software.</p>
+                <p>We are not responsible for any financial decisions, wagers, or bets made based on the simulations
+                    output by this software.</p>
             </div>
         </div>
     </div>
@@ -948,7 +1091,10 @@
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-cyan)"><path d="M12 2L2 22h20L12 2z"></path></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-cyan)">
+                    <path d="M12 2L2 22h20L12 2z"></path>
+                </svg>
                 E-MATCH<span>SYS</span>
             </div>
             <div class="footer-links">
@@ -966,9 +1112,9 @@
 
     <script>
         function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(event, id) { 
+        function closeModal(event, id) {
             if (event && event.target.id !== id) return;
-            document.getElementById(id).classList.remove('active'); 
+            document.getElementById(id).classList.remove('active');
         }
 
         const API = "http://127.0.0.1:5000";
@@ -992,11 +1138,17 @@
                 const data = await res.json();
                 let t1 = document.getElementById("team1");
                 let t2 = document.getElementById("team2");
+                
+                t1.add(new Option("Select Your Team", "", true, true));
+                t1.options[0].disabled = true;
+
+                t2.add(new Option("Choose Opponent", "", true, true));
+                t2.options[0].disabled = true;
+
                 data.forEach(team => {
                     t1.add(new Option(team, team));
                     t2.add(new Option(team, team));
                 });
-                if(t2.options.length > 1) t2.selectedIndex = 1;
             } catch (e) {
                 console.error(e);
             }
@@ -1021,6 +1173,7 @@
         async function predict() {
             const team1 = document.getElementById("team1").value;
             const team2 = document.getElementById("team2").value;
+            if (!team1 || !team2) return alert("Please select both teams.");
             if (team1 === team2) return alert("Select different teams.");
 
             try {
@@ -1044,7 +1197,7 @@
                 ], { ...getLayoutConfig(), barmode: 'group', legend: { font: { color: "#f8f8f8" }, orientation: "h", y: -0.2 } });
 
                 document.getElementById("simulation").innerText = `${data.wins1} - ${data.wins2}`;
-                
+
                 setTimeout(() => Plotly.Plots.resize(document.getElementById('chart')), 50);
                 document.getElementById("bestBtn").style.display = "flex";
             } catch (e) { console.error(e); }
@@ -1060,7 +1213,7 @@
                     body: JSON.stringify({ team1, team2 })
                 });
                 const data = await res.json();
-                
+
                 document.getElementById("bestMatchColumn").classList.remove("hidden");
                 if (window.innerWidth > 1000) document.getElementById("resultsGrid").style.gridTemplateColumns = "1fr 1fr";
 
@@ -1100,31 +1253,31 @@
                     <div class="stat-row"><span>Win Probability</span> <strong>${(data.best.prob * 100).toFixed(1)}%</strong></div>
                     <div class="stat-row"><span>Simulation (100)</span> <strong>${data.best.wins1}W - ${data.best.wins2}L</strong></div>
                 `;
-                
+
                 document.getElementById("bestBtn").style.display = "none";
-                
+
             } catch (e) { console.error(e); }
         }
 
         loadTeams();
         loadAnalytics();
 
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
             if (window.innerWidth <= 1000) {
                 document.getElementById("resultsGrid").style.gridTemplateColumns = "1fr";
             } else if (!document.getElementById("bestMatchColumn").classList.contains("hidden")) {
                 document.getElementById("resultsGrid").style.gridTemplateColumns = "1fr 1fr";
             }
-            
+
             const scatter = document.getElementById('scatter');
             const histogram = document.getElementById('histogram');
             const mainChart = document.getElementById('chart');
             const chartBest = document.getElementById('chartBest');
-            
-            if(scatter && scatter.data) Plotly.Plots.resize(scatter);
-            if(histogram && histogram.data) Plotly.Plots.resize(histogram);
-            if(mainChart && mainChart.data) Plotly.Plots.resize(mainChart);
-            if(chartBest && chartBest.data && !document.getElementById("bestMatchColumn").classList.contains("hidden")) {
+
+            if (scatter && scatter.data) Plotly.Plots.resize(scatter);
+            if (histogram && histogram.data) Plotly.Plots.resize(histogram);
+            if (mainChart && mainChart.data) Plotly.Plots.resize(mainChart);
+            if (chartBest && chartBest.data && !document.getElementById("bestMatchColumn").classList.contains("hidden")) {
                 Plotly.Plots.resize(chartBest);
             }
         });
@@ -1139,4 +1292,5 @@
         });
     </script>
 </body>
+
 </html>
